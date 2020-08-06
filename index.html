@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <title>Static Jobs</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <header></header>
+  <main id="app">
+    <div class="wrap">
+      <div id="filters" class="post flex" v-if="isPopulated">
+        <ul class="flex">
+          <li v-for="tag in tags" :key="tag" @click="removefilter">{{tag}}
+            <span class="remove" tabindex="0" attr.aria-label="Remove Filter"></span>
+          </li>
+        </ul>
+        <button @click="clearfilters">Clear</button>
+      </div>
+        <div :class="{ featured: post.featured }" class="post flex" v-for="post in postsToShow" :key="post.id">
+          <div class="flex">
+            <div class="logo-wrap">
+              <img :src="post.logo" :alt="post.company + ' logo'"/>
+            </div>
+  
+            <div class="post-details">
+              <p class="company">{{post.company}}
+              <span class="new" v-if='post.new'>New!</span>
+              <span class="feature" v-if='post.featured'>Featured</span>
+              </p>
+            <h2><a href="#">{{post.position}}</a></h2>
+            <ul class="flex">
+              <li> {{post.postedAt}}</li>
+              <li>{{post.contract}}</li>
+              <li>{{post.location}}</li>
+            </ul>
+            </div>
+          </div>
+  
+            <ul class="flex">
+              <li tabindex="0" class="tag" @click="addfilter">{{post.role}}</li>
+              <li tabindex="0" class="tag" @click="addfilter">{{post.level}}</li>
+              <li tabindex="0" class="tag" @click="addfilter" v-for="lang in post.languages" :key="lang">{{lang}}</li>
+              <li tabindex="0" class="tag" @click="addfilter" v-for="tool in post.tools" :key="tool">{{tool}}</li>
+            </ul>
+        </div>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
